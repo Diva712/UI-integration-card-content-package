@@ -1,0 +1,11 @@
+{
+	"_version": "1.27.0",
+	"_generator": "cpkg-project-template",
+	"sap.artifact": {
+		"id": "com.diva.invoices",
+		"type": "card",
+		"artifactVersion": {
+			"version": "1.0.0"
+		}
+	}
+}

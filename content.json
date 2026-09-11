@@ -1,0 +1,20 @@
+{
+    "senior_reviewer": {
+        "type": "role",
+        "src":{
+            "from":"./code/src",
+            "content": "role.json"
+        }
+    },
+
+    "invoices": {
+        "type": "card",
+        "src":{
+            "from": "./code/src",
+            "path": "./",
+            "build": "",
+            "package": "",
+            "manifest": "src/manifest.json"
+        }
+    }
+}

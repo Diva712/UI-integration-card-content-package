@@ -1,0 +1,205 @@
+{
+	"sap.package": {
+		"id": "com.diva.invcp",
+		"packageVersion": {
+			"version": "1.0.1",
+			"upgradeNotification": "all"
+		},
+		"i18n": "i18n/i18n.properties",
+		"icon": "sap-icon://accept",
+		"title": "Content Package for Invoice Project Artifacts",
+		"subTitle": "",
+		"shortTitle": "",
+		"info": "",
+		"description": "",
+		"tags": {
+			"keywords": []
+		},
+		"vendor": {
+			"id": "",
+			"name": "",
+			"url": ""
+		},
+		"products": "",
+		"categories": "",
+		"scope": "external",
+		"license": {
+			"text": "",
+			"url": ""
+		},
+		"homepage": {
+			"text": "",
+			"url": ""
+		},
+		"support": {
+			"url": ""
+		},
+		"contents": [
+			{
+				"manifest": {
+					"_version": "1.27.0",
+					"_generator": "cpkg-project-template",
+					"sap.artifact": {
+						"id": "com.diva.invoices",
+						"type": "card",
+						"artifactVersion": {
+							"version": "1.0.0"
+						}
+					}
+				},
+				"baseURL": "artifacts/invoices"
+			}
+		],
+		"documentation": {
+			"url": ""
+		},
+		"consumption": [],
+		"dependencies": {
+			"products": [],
+			"services": []
+		},
+		"destinations": [],
+		"cdmEntities": [
+			{
+				"_version": "3.2.0",
+				"identification": {
+					"id": "com.diva.invcp_senior_reviewer.sm",
+					"title": "Senior Reviewer",
+					"entityType": "role"
+				},
+				"payload": {
+					"apps": [
+						{
+							"id": "com.diva.invoices.app"
+						}
+					]
+				},
+				"texts": [
+					{
+						"locale": "",
+						"textDictionary": {
+							"description": "Business App Description"
+						}
+					}
+				]
+			},
+			{
+				"_version": "3.2.0",
+				"identification": {
+					"id": "com.diva.invoices.app",
+					"entityType": "businessapp",
+					"description": "{{description}}"
+				},
+				"payload": {
+					"visualizations": {
+						"com.diva.invoices.viz": {
+							"vizType": "sap.card",
+							"vizConfig": {
+								"_version": "1.84.0",
+								"$schema": "https://raw.githubusercontent.com/SAP/ui5-manifest/v1.84.0/schema.json",
+								"sap.app": {
+									"id": "com.diva.invoices",
+									"type": "card",
+									"applicationVersion": {
+										"version": "1.0.0"
+									}
+								},
+								"sap.card": {
+									"type": "List",
+									"configuration": {
+										"destinations": {
+											"MyDestination": {
+												"name": "NorthWind",
+												"defaultUrl": "https://services.odata.org"
+											}
+										}
+									},
+									"header": {
+										"title": "Backlog Outstanding Invoices",
+										"subTitle": "Please process the following",
+										"icon": {
+											"src": "./images/logo.png"
+										},
+										"data": {
+											"request": {
+												"url": "{{destinations.MyDestination}}/V3/Northwind/Northwind.svc/Invoices/$count",
+												"method": "GET",
+												"mode": "cors",
+												"path": {}
+											}
+										},
+										"type": "Numeric",
+										"unitOfMeasurement": "EUR",
+										"status": {
+											"text": "5 of {}"
+										},
+										"mainIndicator": {
+											"number": "{} ",
+											"unit": "Invoices",
+											"trend": "{= ${} < 2000 ? 'Up' : 'Down'}",
+											"state": "{= ${} < 2000 ? 'Critical' : 'Good'}"
+										},
+										"sideIndicators": [
+											{
+												"title": "Target",
+												"state": "Good",
+												"number": "2000",
+												"unit": "Invoices"
+											},
+											{
+												"title": "Deviation",
+												"number": "{= ${} - 2000}",
+												"state": "{= ${} - 2000 > 0 ? 'Critical' : 'Good'}"
+											}
+										]
+									},
+									"content": {
+										"data": {
+											"request": {
+												"url": "{{destinations.MyDestination}}/V3/Northwind/Northwind.svc/Invoices",
+												"method": "GET",
+												"mode": "cors",
+												"parameters": {
+													"$format": "json"
+												}
+											},
+											"path": "/value"
+										},
+										"item": {
+											"icon": {
+												"src": "sap-icon://wrench"
+											},
+											"title": {
+												"value": "{CustomerID}, {CustomerName}"
+											},
+											"description": {
+												"value": "{ProductID}, {ProductName}"
+											},
+											"info": {
+												"value": "{UnitPrice}",
+												"state": "None"
+											},
+											"highlight": "{= ${UnitPrice} < 42 ? 'Success' : 'Warning' }"
+										},
+										"maxItems": 5
+									}
+								}
+							},
+							"vizResources": {
+								"artifactId": "com.diva.invoices"
+							}
+						}
+					}
+				},
+				"texts": [
+					{
+						"locale": "",
+						"textDictionary": {
+							"description": "Business App Description"
+						}
+					}
+				]
+			}
+		]
+	}
+}

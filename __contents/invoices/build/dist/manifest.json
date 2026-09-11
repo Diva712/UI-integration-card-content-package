@@ -1,0 +1,94 @@
+{
+	"_version": "1.84.0",
+	"$schema": "https://raw.githubusercontent.com/SAP/ui5-manifest/v1.84.0/schema.json",
+	"sap.app": {
+		"id": "com.diva.invoices",
+		"type": "card",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.card": {
+		"type": "List",
+		"configuration": {
+			"destinations": {
+				"MyDestination": {
+					"name": "NorthWind",
+					"defaultUrl": "https://services.odata.org"
+				}
+			}
+		},
+		"header": {
+			"title": "Backlog Outstanding Invoices",
+			"subTitle": "Please process the following",
+			"icon": {
+				"src": "./images/logo.png"
+			},
+			"data": {
+				"request": {
+					"url": "{{destinations.MyDestination}}/V3/Northwind/Northwind.svc/Invoices/$count",
+					"method": "GET",
+					"mode": "cors",
+					"path": {}
+				}
+			},
+			"type": "Numeric",
+			"unitOfMeasurement": "EUR",
+			"status": {
+				"text": "5 of {}"
+			},
+			"mainIndicator": {
+				"number": "{} ",
+				"unit": "Invoices",
+				"trend": "{= ${} < 2000 ? 'Up' : 'Down'}",
+				"state": "{= ${} < 2000 ? 'Critical' : 'Good'}"
+			},
+			"sideIndicators": [
+				{
+					"title": "Target",
+					"state": "Good",
+					"number": "2000",
+					"unit": "Invoices"
+				},
+				{
+					"title": "Deviation",
+					"number": "{= ${} - 2000}",
+					"state": "{= ${} - 2000 > 0 ? 'Critical' : 'Good'}"
+				}
+			]
+		},
+		"content": {
+			"data": {
+				"request": {
+					"url": "{{destinations.MyDestination}}/V3/Northwind/Northwind.svc/Invoices",
+					"method": "GET",
+					"mode": "cors",
+					"parameters": {
+						"$format": "json"
+					}
+				},
+				"path": "/value"
+			},
+			"item": {
+				"icon": {
+					"src": "sap-icon://wrench"
+				},
+				"title": {
+					"value": "{CustomerID}, {CustomerName}"
+				},
+				"description": {
+					"value": "{ProductID}, {ProductName}"
+				},
+				"info": {
+					"value": "{UnitPrice}",
+					"state": "None"
+				},
+				"highlight": "{= ${UnitPrice} < 42 ? 'Success' : 'Warning' }"
+			},
+			"maxItems": 5
+		}
+	},
+	"sap.ui5": {
+		"flexBundle": false
+	}
+}

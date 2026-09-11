@@ -1,0 +1,15 @@
+{
+    "_version": "3.2.0",
+    "identification": {
+        "id": "com.diva.invcp_senior_reviewer.sm",
+        "title": "Senior Reviewer",
+        "entityType": "role"
+    },
+    "payload":{
+        "apps":[
+            {
+                "id": "com.diva.invoices.app"
+            }
+        ]
+    }
+}
