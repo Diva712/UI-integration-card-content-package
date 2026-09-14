@@ -1,0 +1,63 @@
+{
+    "sap.app": {
+        "id": "com.diva.invoices",
+        "type": "card",
+        "applicationVersion": "1.0.0"
+    },
+    "sap.card": {
+        "type": "list",
+        "header": {
+            "title": "Invoices to be Processed",
+            "subTitle": "Please process the following",
+            "icon": {
+                "src": "sap-icon://sales-document"
+            }
+        },
+        "content": {
+            "item": {
+                "icon": {
+                    "src": "sap-icon://wrench"
+                },
+                "title": {
+                    "value": "{CustomerID}, {CustomerName}"
+                },
+                "description": {
+                    "value": "{ProductID}, {ProductName}"
+                },
+                "info": {
+                    "value": "{UnitPrice}",
+                    "state": "None"
+                },
+                "highlight": "{= ${UnitPrice} < 70 ? 'Success' : 'Warning' }"
+            }
+        },
+        "designtime": "sap/ui/integration/designtime/cardEditor/ConfigurationTemplate",
+        "data": {
+            "json": [
+                {
+                    "CustomerID": "51",
+                    "CustomerName": "Kerry",
+                    "ProductID": "7",
+                    "ProductName": "Apples",
+                    "UnitPrice": 89.5
+                },
+                {
+                    "CustomerID": "52",
+                    "CustomerName": "Maria",
+                    "ProductID": "9",
+                    "ProductName": "Mango",
+                    "UnitPrice": 78.5
+                },
+                {
+                    "CustomerID": "53",
+                    "CustomerName": "Preita",
+                    "ProductID": "8",
+                    "ProductName": "Grapes",
+                    "UnitPrice": 69.5
+                }
+            ]
+        }
+    }
+}
+
+=> manifest file for static content
